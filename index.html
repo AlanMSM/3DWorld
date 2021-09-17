@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3DWORLD</title>
+</head>
+<body>
+    <script type="module">
+        //---------------------------------------------------------------------------->importa librerias de three
+        import * as THREE from './ThreeJS/three.module.js';
+        import {OrbitControls} from './ThreeJS/OrbitControls.js';
+        
+        let scene, camera, renderer, selectedBg;
+        let At, Ab, A1, A2, A3, A4, Bt, Bb, B1, B2, B3, B4;
+        //---------------------------------------------------------------------------->funcion que provoca renderizado, invocada al final
+        function init(){
+            var selectedBg=prompt("Ingrese 1-5");
+            //-------------------------------------------------------------------->le da la propiedad de 3JS escena a una variable
+            scene = new THREE.Scene();
+                // scene.background = new THREE.Color(0x2a3b4c)
+
+            //-------------------------------------------------------------------->le da la propiedad cámara a una variable
+            camera = new THREE.PerspectiveCamera(55, (window.innerWidth/ window.innerHeight));
+                // camera.position.x=-900;
+                // camera.position.y=-200;
+                // camera.position.z=-900;
+            camera.position.set(0,0,0); //posicion de la camara
+
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth,window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            var controls = new OrbitControls(camera,renderer.domElement);
+            controls.minDistance=500;
+            controls.maxDistance=1500;
+            controls.addEventListener('change',renderer);
+
+            let materialArray = [];
+            
+
+            //-------------------------------------------------------------------->ATENCIÓN
+            //-------------------------------------------------------------------->Las siguientes líneas de código no se ven eficientes,
+            //-------------------------------------------------------------------->si usted conoce una manera de hacerlas funcionar, reduciendo
+            //-------------------------------------------------------------------->la cantidad repetitiva de código
+            //-------------------------------------------------------------------->por favor agregarla.
+
+            //-------------------------------------------------------------------->Define el background según la selección
+            if (selectedBg=="1"){
+                let texture_ft = new THREE.TextureLoader().load( './background/arid2_ft.jpg');
+                let texture_bk = new THREE.TextureLoader().load( './background/arid2_bk.jpg');
+                let texture_up = new THREE.TextureLoader().load( './background/arid2_up.jpg');
+                let texture_dn = new THREE.TextureLoader().load( './background/arid2_dn.jpg');
+                let texture_rt = new THREE.TextureLoader().load( './background/arid2_rt.jpg');
+                let texture_lf = new THREE.TextureLoader().load( './background/arid2_lf.jpg');
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_up }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_dn }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_rt }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
+            }
+            else if(selectedBg==2){
+                let texture_ft = new THREE.TextureLoader().load( './background/zeus_ft.jpg');
+                let texture_bk = new THREE.TextureLoader().load( './background/zeus_bk.jpg');
+                let texture_up = new THREE.TextureLoader().load( './background/zeus_up.jpg');
+                let texture_dn = new THREE.TextureLoader().load( './background/zeus_dn.jpg');
+                let texture_rt = new THREE.TextureLoader().load( './background/zeus_rt.jpg');
+                let texture_lf = new THREE.TextureLoader().load( './background/zeus_lf.jpg');
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_up }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_dn }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_rt }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));   
+            } 
+            else if(selectedBg=="3"){
+                let texture_ft = new THREE.TextureLoader().load( './background/kenon_cloudbox_ft.png');
+                let texture_bk = new THREE.TextureLoader().load( './background/kenon_cloudbox_bk.png');
+                let texture_up = new THREE.TextureLoader().load( './background/kenon_cloudbox_up.png');
+                let texture_dn = new THREE.TextureLoader().load( './background/kenon_cloudbox_dn.png');
+                let texture_rt = new THREE.TextureLoader().load( './background/kenon_cloudbox_rt.png');
+                let texture_lf = new THREE.TextureLoader().load( './background/kenon_cloudbox_lf.png');
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_up }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_dn }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_rt }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));   
+            } 
+            else if(selectedBg=="4"){
+                let texture_ft = new THREE.TextureLoader().load( './background/flames_ft.jpg');
+                let texture_bk = new THREE.TextureLoader().load( './background/flames_bk.jpg');
+                let texture_up = new THREE.TextureLoader().load( './background/flames_up.jpg');
+                let texture_dn = new THREE.TextureLoader().load( './background/flames_dn.jpg');
+                let texture_rt = new THREE.TextureLoader().load( './background/flames_rt.jpg');
+                let texture_lf = new THREE.TextureLoader().load( './background/flames_lf.jpg');
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_up }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_dn }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_rt }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
+            } 
+            else if(selectedBg=="5"){
+                let texture_ft = new THREE.TextureLoader().load( './background/morning_ft.jpg');
+                let texture_bk = new THREE.TextureLoader().load( './background/morning_bk.jpg');
+                let texture_up = new THREE.TextureLoader().load( './background/morning_up.jpg');
+                let texture_dn = new THREE.TextureLoader().load( './background/morning_dn.jpg');
+                let texture_rt = new THREE.TextureLoader().load( './background/morning_rt.jpg');
+                let texture_lf = new THREE.TextureLoader().load( './background/morning_lf.jpg');
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_up }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_dn }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_rt }));
+                materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));  
+            } 
+            else{
+                alert("Selección inválida. Recargue la página para reintentar.");
+                }          
+            
+            //-------------------------------------------------------------------->Pega las imágenes dentro
+            for (let i = 0; i < 6; i++){
+                materialArray[i].side = THREE.BackSide;
+                }
+
+                // var material = new THREE.MeshBasicMaterial({color:0x000000, wireframe: true});
+
+            //-------------------------------------------------------------------->Genera una geometría cúbica
+            let skyboxGeo = new THREE.BoxGeometry(1700,1700,1700);
+            let skybox = new THREE.Mesh(skyboxGeo,materialArray);
+            scene.add(skybox); //añade la geometria skybox
+        
+            //-------------------------------------------------------------------->Redimensiona la  página cuando el usuario lo hace
+            window.addEventListener("resize", redimensionar);
+            function redimensionar(){
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth,window.innerHeight);
+                renderer.render(scene,camera);
+            }
+
+            animate();
+        }
+        //-------------------------------------------------------------------->Función que renderiza el "render" y la cámara, 
+        //-------------------------------------------------------------------->para visualizar la escena en el navegador
+        function animate(){
+            renderer.render(scene,camera);
+            requestAnimationFrame(animate);
+        }
+        
+        //-------------------------------------------------------------------->disparador de variables
+        init();
+    </script>
+
+</body>
+</html>
